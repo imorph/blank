@@ -25,7 +25,7 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/imorph/blank/lib/sig"
+	"github.com/imorph/blank/lib/signl"
 	"github.com/spf13/cobra"
 )
 
@@ -36,7 +36,7 @@ var serverCmd = &cobra.Command{
 	Long:  `This is main server entry-point`,
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("server called")
-		signal := sig.WaitForSigterm()
+		signal := signl.WaitForSigterm()
 		log.Println("recieved signal:", signal)
 		log.Println("exiting")
 	},
