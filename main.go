@@ -24,5 +24,5 @@ package main
 import "github.com/imorph/blank/cmd"
 
 func main() {
-  cmd.Execute()
+	cmd.Execute()
 }
