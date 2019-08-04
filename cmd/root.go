@@ -86,6 +86,7 @@ func initConfig() {
 		viper.SetConfigName(".blank")
 	}
 
+	viper.SetEnvPrefix("blank")
 	viper.AutomaticEnv() // read in environment variables that match
 
 	// If a config file is found, read it in.

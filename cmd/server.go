@@ -24,12 +24,12 @@ package cmd
 import (
 	"fmt"
 	"log"
-	"net/http"
 	"time"
 
 	"github.com/imorph/blank/lib/health"
 	"github.com/imorph/blank/lib/signl"
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 )
 
 // serverCmd represents the server command
@@ -50,6 +50,8 @@ var serverCmd = &cobra.Command{
 	},
 }
 
+var address string
+
 func init() {
 	rootCmd.AddCommand(serverCmd)
 
@@ -57,8 +59,9 @@ func init() {
 
 	// Cobra supports Persistent Flags which will work for this command
 	// and all subcommands, e.g.:
-	// serverCmd.PersistentFlags().String("foo", "", "A help for foo")
-
+	serverCmd.PersistentFlags().StringVar(&address, "address", "127.0.0.1:9999", "An adress server will listen on")
+	viper.BindPFlag("address", serverCmd.PersistentFlags().Lookup("address"))
+	
 	// Cobra supports local flags which will only run when this command
 	// is called directly, e.g.:
 	// serverCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
