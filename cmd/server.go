@@ -41,8 +41,9 @@ var serverCmd = &cobra.Command{
 		fmt.Println("server called")
 
 		startTime := time.Now()
-		go health.ListenAndServe("0.0.0.0:8086")
+		go health.ListenAndServe(address)
 		log.Println("Started App in:", time.Since(startTime))
+		log.Println("Listen on:", address)
 
 		signal := signl.WaitForSigterm()
 		log.Println("recieved signal:", signal)
@@ -60,8 +61,11 @@ func init() {
 	// Cobra supports Persistent Flags which will work for this command
 	// and all subcommands, e.g.:
 	serverCmd.PersistentFlags().StringVar(&address, "address", "127.0.0.1:9999", "An adress server will listen on")
-	viper.BindPFlag("address", serverCmd.PersistentFlags().Lookup("address"))
-	
+	err := viper.BindPFlag("address", serverCmd.PersistentFlags().Lookup("address"))
+	if err != nil {
+		log.Println("unable to bing to flag", err)
+	}
+
 	// Cobra supports local flags which will only run when this command
 	// is called directly, e.g.:
 	// serverCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
