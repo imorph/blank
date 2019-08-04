@@ -2,20 +2,14 @@ PKG_PREFIX := github.com/imorph/blank
 
 APP_NAME := blank
 
-BUILDINFO_TAG ?= $(shell echo $$(git describe --long --all | tr '/' '-')$$( \
-	      git diff-index --quiet HEAD -- || echo '-dirty-'$$(git diff-index -u HEAD | sha1sum | grep -oP '^.{8}')))
-
-PKG_TAG ?= $(shell git tag -l --points-at HEAD)
-ifeq ($(PKG_TAG),)
-PKG_TAG := $(BUILDINFO_TAG)
-endif
-
-GO_BUILDINFO = -X '$(PKG_PREFIX)/lib/buildinfo.Version=$(APP_NAME)-$(shell date -u +'%Y%m%d-%H%M%S')-$(BUILDINFO_TAG)'
+BUILDINFO_SHA ?= $(shell git rev-parse HEAD | grep -oP '^.{8}')
+BUILDINFO_TAG ?= $(shell git describe --abbrev=0)
+GO_BUILDINFO = -X '$(PKG_PREFIX)/lib/buildinfo.Version=$(APP_NAME)-$(BUILDINFO_TAG)-$(BUILDINFO_SHA)'
 
 all: clean deps check_all build
 
 build:
-	GO111MODULE=on go build .
+	GO111MODULE=on go build -ldflags "$(GO_BUILDINFO)" .
 
 clean:
 	rm -rf ./blank
