@@ -22,9 +22,8 @@ THE SOFTWARE.
 package cmd
 
 import (
-	"fmt"
 
-	"github.com/imorph/lib/buildinfo"
+	"github.com/imorph/blank/lib/buildinfo"
 	"github.com/spf13/cobra"
 )
 
