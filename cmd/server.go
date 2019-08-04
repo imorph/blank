@@ -41,9 +41,11 @@ var serverCmd = &cobra.Command{
 		fmt.Println("server called")
 
 		startTime := time.Now()
-		go health.ListenAndServe(viper.GetString("address"))
+		//go health.ListenAndServe(viper.GetString("address"))
+		go health.ListenAndServe(address)
 		log.Println("Started App in:", time.Since(startTime))
-		log.Println("Listen on:", viper.GetString("address"))
+		//log.Println("Listen on:", viper.GetString("address"))
+		log.Println("Listen on:", address)
 
 		signal := signl.WaitForSigterm()
 		log.Println("recieved signal:", signal)
