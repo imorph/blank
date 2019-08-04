@@ -22,7 +22,6 @@ THE SOFTWARE.
 package cmd
 
 import (
-
 	"github.com/imorph/blank/lib/buildinfo"
 	"github.com/spf13/cobra"
 )

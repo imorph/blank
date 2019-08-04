@@ -24,7 +24,10 @@ package cmd
 import (
 	"fmt"
 	"log"
+	"net/http"
+	"time"
 
+	"github.com/imorph/blank/lib/health"
 	"github.com/imorph/blank/lib/signl"
 	"github.com/spf13/cobra"
 )
@@ -36,6 +39,11 @@ var serverCmd = &cobra.Command{
 	Long:  `This is main server entry-point`,
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("server called")
+
+		startTime := time.Now()
+		go health.ListenAndServe("0.0.0.0:8086")
+		log.Println("Started App in:", time.Since(startTime))
+
 		signal := signl.WaitForSigterm()
 		log.Println("recieved signal:", signal)
 		log.Println("exiting")
