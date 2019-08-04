@@ -62,6 +62,8 @@ func init() {
 	// and all subcommands, e.g.:
 	serverCmd.PersistentFlags().StringVar(&address, "address", "127.0.0.1:9999", "An adress server will listen on")
 	err := viper.BindPFlag("address", serverCmd.PersistentFlags().Lookup("address"))
+	viper.SetDefault("address", "127.0.0.1:9999")
+
 	if err != nil {
 		log.Println("unable to bing to flag", err)
 	}
