@@ -22,7 +22,6 @@ THE SOFTWARE.
 package cmd
 
 import (
-	"fmt"
 	"log"
 	"time"
 
@@ -38,8 +37,6 @@ var serverCmd = &cobra.Command{
 	Short: "Start to serve some requests",
 	Long:  `This is main server entry-point`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("server called")
-
 		startTime := time.Now()
 		go health.ListenAndServe(viper.GetString("address"))
 		log.Println("Started App in:", time.Since(startTime))
