@@ -25,7 +25,6 @@ import (
 	"log"
 	"time"
 
-	"github.com/imorph/blank/lib/health"
 	"github.com/imorph/blank/lib/signl"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -38,7 +37,6 @@ var serverCmd = &cobra.Command{
 	Long:  `This is main server entry-point`,
 	Run: func(cmd *cobra.Command, args []string) {
 		startTime := time.Now()
-		go health.ListenAndServe(viper.GetString("address"))
 		log.Println("Started App in:", time.Since(startTime))
 		log.Println("Listen on:", viper.GetString("address"))
 
