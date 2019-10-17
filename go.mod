@@ -4,7 +4,6 @@ go 1.12
 
 require (
 	github.com/magiconair/properties v1.8.1 // indirect
-	github.com/mitchellh/go-homedir v1.1.0
 	github.com/pelletier/go-toml v1.4.0 // indirect
 	github.com/spf13/afero v1.2.2 // indirect
 	github.com/spf13/cobra v0.0.5
