@@ -39,6 +39,7 @@ var serverCmd = &cobra.Command{
 		startTime := time.Now()
 		log.Println("Started App in:", time.Since(startTime))
 		log.Println("Listen on:", viper.GetString("address"))
+		log.Println("Log Level:", viper.GetString("logLevel"))
 
 		signal := signl.WaitForSigterm()
 		log.Println("recieved signal:", signal)
@@ -46,16 +47,21 @@ var serverCmd = &cobra.Command{
 	},
 }
 
-var address string
+var address, logLevel string
 
 func init() {
 	rootCmd.AddCommand(serverCmd)
 
 	// Here you will define your flags and configuration settings.
 	serverCmd.PersistentFlags().StringVar(&address, "address", "127.0.0.1:9999", "An adress server will listen on")
-	err := viper.BindPFlag("address", serverCmd.PersistentFlags().Lookup("address"))
+	serverCmd.PersistentFlags().StringVar(&logLevel, "logLevel", "info", "Logger verbosity level")
+	err := viper.BindPFlag("logLevel", serverCmd.PersistentFlags().Lookup("logLevel"))
 	if err != nil {
-		log.Println("unable to bing to flag", err)
+		log.Println("unable to bind to flag", err)
+	}
+	err = viper.BindPFlag("address", serverCmd.PersistentFlags().Lookup("address"))
+	if err != nil {
+		log.Println("unable to bind to flag", err)
 	}
 
 }

@@ -26,7 +26,7 @@ import (
 	"github.com/spf13/cobra"
 	"os"
 
-	homedir "github.com/mitchellh/go-homedir"
+	//homedir "github.com/mitchellh/go-homedir"
 	"github.com/spf13/viper"
 )
 
@@ -57,7 +57,7 @@ func Execute() {
 func init() {
 	cobra.OnInitialize(initConfig)
 
-	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.blank.yaml)")
+	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is ./config/blank.yaml)")
 }
 
 // initConfig reads in config file and ENV variables if set.
@@ -66,16 +66,10 @@ func initConfig() {
 		// Use config file from the flag.
 		viper.SetConfigFile(cfgFile)
 	} else {
-		// Find home directory.
-		home, err := homedir.Dir()
-		if err != nil {
-			fmt.Println(err)
-			os.Exit(1)
-		}
 
-		// Search config in home directory with name ".blank" (without extension).
-		viper.AddConfigPath(home)
-		viper.SetConfigName(".blank")
+		// Search config in ./config directory with name "blank" (without extension).
+		viper.AddConfigPath("./config")
+		viper.SetConfigName("blank")
 	}
 
 	viper.SetEnvPrefix("blank")
