@@ -22,6 +22,8 @@ THE SOFTWARE.
 package cmd
 
 import (
+	"fmt"
+
 	"github.com/imorph/blank/lib/buildinfo"
 	"github.com/spf13/cobra"
 )
@@ -32,7 +34,7 @@ var versionCmd = &cobra.Command{
 	Short: "App version",
 	Long:  `Version from build info`,
 	Run: func(cmd *cobra.Command, args []string) {
-		buildinfo.PrintVersion()
+		fmt.Println("App:", buildinfo.GetAppName(), "version:", buildinfo.GetVersion())
 	},
 }
 

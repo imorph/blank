@@ -4,12 +4,13 @@ APP_NAME := blank
 
 BUILDINFO_SHA ?= $(shell git rev-parse HEAD | grep -oP '^.{8}')
 BUILDINFO_TAG ?= $(shell git describe --abbrev=0)
-GO_BUILDINFO = -X '$(PKG_PREFIX)/lib/buildinfo.Version=$(APP_NAME)-$(BUILDINFO_TAG)-$(BUILDINFO_SHA)'
+GO_BUILDINFO_VERSION = -X '$(PKG_PREFIX)/lib/buildinfo.Version=$(BUILDINFO_TAG)-$(BUILDINFO_SHA)'
+GO_BUILDINFO_NAME = -X '$(PKG_PREFIX)/lib/buildinfo.AppName=$(APP_NAME)'
 
 all: clean deps check_all build
 
 build:
-	GO111MODULE=on go build -ldflags "$(GO_BUILDINFO)" .
+	GO111MODULE=on go build -ldflags "$(GO_BUILDINFO_VERSION) $(GO_BUILDINFO_NAME)" .
 
 clean:
 	rm -rf ./blank

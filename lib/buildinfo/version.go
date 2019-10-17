@@ -1,13 +1,14 @@
 package buildinfo
 
-import (
-	"fmt"
-)
+// Version and AppNmae must be set via -ldflags '-X'
+var Version, AppName string
 
-// Version must be set via -ldflags '-X'
-var Version string
+// GetVersion returns version to caller
+func GetVersion() string {
+	return Version
+}
 
-// PrintVersion prints version to stout
-func PrintVersion() {
-	fmt.Println("app version:", Version)
+// GetVersion returns version to caller
+func GetAppName() string {
+	return AppName
 }
