@@ -1,6 +1,6 @@
 # blank
 
-Blank is simple service temaplate
+Blank is simple service template
 
 It can: 
 * read config file
